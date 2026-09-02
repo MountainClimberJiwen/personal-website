@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Source videos (大文件，git 仓库不存；用 scripts/transcode.sh 转码后才有 public/ 下的压缩版)
+src/videos/*.mp4
+src/videos/*.mov
+
+# Build artifacts (optional)
+/dist
+/build
