@@ -102,3 +102,31 @@ sudo sh -c 'echo "124.221.22.70 1boss.tech www.1boss.tech" >> /etc/hosts'
 # 看完后清理：
 sudo sed -i '' '/1boss.tech$/d; /www.1boss.tech$/d' /etc/hosts
 ```
+
+## Author & Contact
+
+**MountainClimberJiwen** — 登山小鲁
+
+独立开发者 / 一人公司实践者。
+
+- 📧 Email: ljwscu@gmail.com
+- 💬 WeChat: 扫码添加好友，备注来意
+
+  <img src="assets/wechat-contact-qr.jpg" width="200" alt="WeChat QR Code">
+
+- 🐙 GitHub: [@MountainClimberJiwen](https://github.com/MountainClimberJiwen)
+
+## Support This Project
+
+如果这个项目对你有帮助，欢迎请我喝杯咖啡 ☕
+
+你的支持会转化为：
+- 更多项目与开源工具
+- 更好的文档和教程
+- 更稳定的代码和更快的 bug 修复
+
+**Buy Me a Coffee** 🍵
+
+<img src="assets/payment-qr.jpg" width="200" alt="Support QR Code">
+
+> "每一杯咖啡，都是对一个工程师深夜写代码的温柔慰藉。"
