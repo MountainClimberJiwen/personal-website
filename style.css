@@ -84,8 +84,28 @@ body {
   color: rgba(26, 26, 26, 0.7);
   font-weight: 400;
   max-width: 460px;
-  margin: 0 auto;
+  margin: 0 auto 1.6rem;
   line-height: 1.55;
+}
+
+/* Hero 上的案例入口按钮 */
+.btn-cases {
+  display: inline-block;
+  padding: 0.7rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: #1f5fb0;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(31, 95, 176, 0.35);
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-cases:hover {
+  background: #144a8c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(31, 95, 176, 0.45);
 }
 
 /* ====== Card sections ====== */

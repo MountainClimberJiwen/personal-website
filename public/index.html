@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[你的名字] — 个人主页</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 两个 fixed 全屏背景视频，根据滚动位置切换显示 -->
+  <video class="bg-video bg-video-1" autoplay loop muted playsinline preload="auto" aria-hidden="true">
+    <source src="videos/bg-vp9.webm" type="video/webm">
+    <source src="videos/bg-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+    <source src="videos/bg-h264.mp4" type="video/mp4">
+  </video>
+  <video class="bg-video bg-video-2" loop muted playsinline preload="auto" aria-hidden="true">
+    <source src="videos/bg2-vp9.webm" type="video/webm">
+    <source src="videos/bg2-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+    <source src="videos/bg2-h264.mp4" type="video/mp4">
+  </video>
+
+  <main class="content">
+    <!-- Hero -->
+    <header class="hero" data-scene="1">
+      <h1>[你的名字]</h1>
+      <p class="subtitle">[一句话自我介绍，比如：独立开发者 · 一人公司实践者]</p>
+      <a class="btn-cases" href="cases/">查看我的案例 →</a>
+    </header>
+
+    <!-- About（仍在视频 1 背景下） -->
+    <section class="card bio" data-scene="1">
+      <h2>关于</h2>
+      <p>[一段简短的自我介绍——告诉访客你是谁、做什么、关注什么。控制在 2-3 句话即可，让页面读起来轻盈。]</p>
+    </section>
+
+    <!-- 滚动到此处起，切换到视频 2（与视频 1 同款 fixed 全屏背景） -->
+    <section class="card" data-scene="2">
+      <h2>我的世界</h2>
+      <p>[这里是视频 2 对应的内容区域。视频 2 会作为整个视口的背景继续铺底，跟视频 1 一样的展示方式。]</p>
+    </section>
+
+    <!-- Works（仍在视频 2 背景下） -->
+    <section class="card" data-scene="2">
+      <h2>作品 · 项目</h2>
+      <ul class="link-list">
+        <li>
+          <a href="cases/">个人案例集</a>
+          <span>图片 / 视频形式的案例展示</span>
+        </li>
+        <li>
+          <a href="https://1boss.tech" target="_blank" rel="noopener">1boss.tech</a>
+          <span>OPC（一人公司）项目管理工具</span>
+        </li>
+        <li>
+          <a href="#" target="_blank" rel="noopener">[项目名]</a>
+          <span>[一句话说明]</span>
+        </li>
+        <li>
+          <a href="#" target="_blank" rel="noopener">[项目名]</a>
+          <span>[一句话说明]</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Contact（仍在视频 2 背景下） -->
+    <section class="card contact" data-scene="2">
+      <h2>联系方式</h2>
+      <ul class="link-list">
+        <li>
+          <a href="mailto:[your@email.com]">Email</a>
+          <span>[your@email.com]</span>
+        </li>
+        <li>
+          <a href="#" target="_blank" rel="noopener">[Twitter / X]</a>
+          <span>[@你的 handle]</span>
+        </li>
+        <li>
+          <a href="#" target="_blank" rel="noopener">[GitHub]</a>
+          <span>[@你的 handle]</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      // 滚动到指定 scene 时切换背景视频
+      const v1 = document.querySelector('.bg-video-1');
+      const v2 = document.querySelector('.bg-video-2');
+      if (!v1 || !v2 || !('IntersectionObserver' in window)) return;
+
+      // 初始：v1 显示并播放，v2 隐藏且暂停
+      v2.style.opacity = '0';
+      v2.style.zIndex = '-3';
+      v2.pause();
+
+      function activate(scene) {
+        const target = scene === '2' ? v2 : v1;
+        const other  = scene === '2' ? v1 : v2;
+        target.style.opacity = '1';
+        target.style.zIndex = '-2';
+        target.play().catch(() => {});
+        other.style.opacity = '0';
+        other.style.zIndex = '-3';
+        other.pause();
+      }
+
+      const io = new IntersectionObserver((entries) => {
+        // 取最近一次触发中离视口顶部最近的 section（rootMargin 已经限制在顶部区域）
+        let chosen = null;
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (!chosen || entry.boundingClientRect.top < chosen.boundingClientRect.top) {
+              chosen = entry;
+            }
+          }
+        });
+        if (chosen) activate(chosen.target.dataset.scene);
+      }, {
+        threshold: 0,
+        // 只在视口顶部 15%-30% 这一窄带触发，避免多个 section 同时可见时频繁切换
+        rootMargin: '-15% 0px -70% 0px'
+      });
+
+      document.querySelectorAll('[data-scene]').forEach(el => io.observe(el));
+    })();
+  </script>
+</body>
+</html>
